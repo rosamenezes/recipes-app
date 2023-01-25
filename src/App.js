@@ -1,6 +1,5 @@
 import React from 'react';
 import './App.css';
-import rockGlass from './images/rockGlass.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Route, Switch } from 'react-router-dom';
 import Login from './pages/Login';
@@ -10,8 +9,8 @@ function App() {
   return (
     <div>
       <Switch>
-        <Route path="/" exact component={Login} />
-        <Route path="/meals" exact component={Meals} />
+        <Route path="/" exact component={ Login } />
+        <Route path="/meals" exact component={ Meals } />
       </Switch>
     </div>
   );
