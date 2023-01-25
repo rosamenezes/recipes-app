@@ -12,6 +12,7 @@ function App() {
         type="image/svg+xml"
         data={ rockGlass }
       >
+      <p>group 15</p>
         Glass
       </object>
     </div>
