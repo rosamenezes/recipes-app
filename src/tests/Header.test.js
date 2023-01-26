@@ -68,7 +68,7 @@ it('Verificando o Header na pagina profile', () => {
   expect(h1Title).toBeInTheDocument();
 });
 
-it('Verificando o Header na pagina profile', () => {
+it('Verificando se ao clicar no botao vai para a pagina profile', () => {
   const { history } = renderWithRouter(<App />);
 
   act(() => history.push('/profile'));
@@ -77,4 +77,30 @@ it('Verificando o Header na pagina profile', () => {
   userEvent.click(perfilButton);
 
   expect(history.location.pathname).toBe('/profile');
+});
+
+it('Verificando se ao clicar no botao de pesquisa o input e renderizado na tela', () => {
+  const { history } = renderWithRouter(<App />);
+
+  act(() => history.push('/drinks'));
+
+  const searchlButton = screen.getByTestId('search-top-btn');
+  userEvent.click(searchlButton);
+
+  const inputSearch = screen.getByTestId('search-input');
+
+  expect(inputSearch).toBeInTheDocument();
+});
+
+it('Verificando se ao clicar no botao de pesquisa o input e renderizado na tela', () => {
+  const { history } = renderWithRouter(<App />);
+
+  act(() => history.push('/meals'));
+
+  const searchlButton = screen.getByTestId('search-top-btn');
+  userEvent.click(searchlButton);
+
+  const inputSearch = screen.getByTestId('search-input');
+
+  expect(inputSearch).toBeInTheDocument();
 });

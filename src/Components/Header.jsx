@@ -1,22 +1,32 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
+import SearchBar from './SearchBar';
 
 function Header() {
   const history = useHistory();
   const { pathname } = history.location;
+  const [inputSearch, setInputSearch] = useState(false);
 
   const handleClickProfile = () => {
     history.push('/profile');
   };
+
+  const handleClickSearch = () => {
+    setInputSearch(!inputSearch);
+  };
+
   return (
     <div>
       { pathname === '/drinks' && (
         <div>
+          {inputSearch && (
+            <SearchBar />
+          )}
           <button
             type="button"
-            // onClick={ handleClickSearch }
+            onClick={ handleClickSearch }
           >
             <img
               src={ searchIcon }
@@ -39,9 +49,12 @@ function Header() {
       ) }
       { pathname === '/meals' && (
         <div>
+          {inputSearch && (
+            <SearchBar />
+          )}
           <button
             type="button"
-            // onClick={ handleClickSearch }
+            onClick={ handleClickSearch }
           >
             <img
               src={ searchIcon }
