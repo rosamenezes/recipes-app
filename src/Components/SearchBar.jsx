@@ -6,11 +6,17 @@ import { MealsContext } from '../context/MealsContext';
 function SearchBar() {
   const [searchInput, setSearchInput] = useState('');
   const [filterRadio, setFilterRadio] = useState();
-  const { makeFetch, erro, handleError } = useContext(MealsContext);
-  const { makeFetchDrinks, erroDrinks, handleErrorDrinks } = useContext(DrinksContext);
+  const { makeFetch, erro, handleError, dataResults } = useContext(MealsContext);
+  const {
+    makeFetchDrinks,
+    erroDrinks,
+    handleErrorDrinks,
+    dataResultsDrinks,
+  } = useContext(DrinksContext);
 
   const history = useHistory();
   const alertLetter = 'Your search must have only 1 (one) character';
+  const alertLetterNoRecepies = 'Sorry, we haven\'t found any recipes for these filters.';
 
   const handleClick = () => {
     if (history.location.pathname === '/meals') {
@@ -31,15 +37,27 @@ function SearchBar() {
     if (erro === 'erro') {
       global.alert(alertLetter);
     }
+    if (dataResults.meals !== null && dataResults.meals.length === 1) {
+      history.push(`/meals/${dataResults.meals[0].idMeal}`);
+    }
+    if (dataResults.meals === null) {
+      global.alert(alertLetterNoRecepies);
+    }
     handleError();
-  }, [erro]);
+  }, [erro, dataResults]);
 
   useEffect(() => {
     if (erroDrinks === 'erro') {
       global.alert(alertLetter);
     }
+    if (dataResultsDrinks.drinks !== null && dataResultsDrinks.drinks.length === 1) {
+      history.push(`/drinks/${dataResultsDrinks.drinks[0].idDrink}`);
+    }
+    if (dataResultsDrinks.drinks === null) {
+      global.alert(alertLetterNoRecepies);
+    }
     handleErrorDrinks();
-  }, [erroDrinks]);
+  }, [erroDrinks, dataResultsDrinks]);
 
   return (
     <div>

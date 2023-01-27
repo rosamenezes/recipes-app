@@ -5,7 +5,7 @@ export const MealsContext = createContext();
 
 function MealsProvider({ children }) {
   const [isLoading, setIsloading] = useState(false);
-  const [dataResults, setDataResults] = useState();
+  const [dataResults, setDataResults] = useState({ meals: [] });
   const [erro, setErro] = useState('');
   const [apiError, setApiError] = useState('');
 
@@ -16,24 +16,21 @@ function MealsProvider({ children }) {
       case 'Ingredient': {
         const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${inputSearch}`);
         const data = await response.json();
-        setDataResults(data);
+        return setDataResults(data);
       }
-        break;
       case 'Name': {
         const response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${inputSearch}`);
         const data = await response.json();
-        setDataResults(data);
+        return setDataResults(data);
       }
-        break;
       case 'First letter': {
         if (inputSearch.length > 1) {
           setErro('erro');
         }
         const response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${inputSearch}`);
         const data = await response.json();
-        setDataResults(data);
+        return setDataResults(data);
       }
-        break;
       default:
         break;
       }
@@ -56,7 +53,7 @@ function MealsProvider({ children }) {
     setErro,
     handleError,
     apiError,
-  }), [erro]);
+  }), [erro, dataResults]);
 
   return (
     <MealsContext.Provider value={ context }>

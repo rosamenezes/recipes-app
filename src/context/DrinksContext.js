@@ -5,7 +5,7 @@ export const DrinksContext = createContext();
 
 function DrinksProvider({ children }) {
   const [isLoadingDrinks, setIsloadingDrinks] = useState(false);
-  const [dataResultsDrinks, setDataResultsDrinks] = useState();
+  const [dataResultsDrinks, setDataResultsDrinks] = useState({ drinks: [] });
   const [erroDrinks, setErroDrinks] = useState('');
   const [apiErrorDrinks, setApiErrorDrinks] = useState('');
 
@@ -55,7 +55,7 @@ function DrinksProvider({ children }) {
     erroDrinks,
     handleErrorDrinks,
     apiErrorDrinks,
-  }), [erroDrinks]);
+  }), [erroDrinks, dataResultsDrinks]);
 
   return (
     <DrinksContext.Provider value={ context }>
