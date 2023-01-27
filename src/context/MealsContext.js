@@ -32,7 +32,7 @@ function MealsProvider({ children }) {
         return setDataResults(data);
       }
       default:
-        break;
+        // break;
       }
     } catch (e) {
       setApiError(e);
