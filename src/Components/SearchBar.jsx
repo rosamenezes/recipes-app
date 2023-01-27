@@ -21,20 +21,23 @@ function SearchBar() {
   const handleClick = () => {
     if (history.location.pathname === '/meals') {
       makeFetch(searchInput, filterRadio);
-      if (erro === 'erro') {
-        global.alert(alertLetter);
-      }
+      // if (erro === 'erro') {
+      //   console.log('teste');
+      //   global.alert(alertLetter);
+      // }
     }
     if (history.location.pathname === '/drinks') {
       makeFetchDrinks(searchInput, filterRadio);
-      if (erroDrinks === 'erro') {
-        global.alert(alertLetter);
-      }
+      // if (erroDrinks === 'erro') {
+      //   global.alert(alertLetter);
+      // }
     }
   };
 
   useEffect(() => {
     if (erro === 'erro') {
+      console.log('teste2');
+
       global.alert(alertLetter);
     }
     if (dataResults.meals !== null && dataResults.meals.length === 1) {

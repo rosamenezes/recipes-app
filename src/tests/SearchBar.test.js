@@ -5,6 +5,7 @@ import { act } from 'react-dom/test-utils';
 import App from '../App';
 import pepperMock from './mocks/mocksMeals/pepperMock.json';
 import fruitMock from './mocks/mocksMeals/fruitMock.json';
+import EggCreamMock from './mocks/mocksMeals/mocksDrinks/EggCreamMock.json';
 import renderWithRouterAndContext from './renderWithRouter/renderWithRouterAndContext';
 
 const searchIDbutton = 'search-top-btn';
@@ -85,6 +86,30 @@ describe('', () => {
     expect(global.alert).toHaveBeenCalled();
     expect(global.alert).toHaveBeenCalledTimes(1);
   });
+
+  it('Verifica se ao clicar no botao buscar com a opcao "first-letter" e o input > 1 e chamado um alert', async () => {
+    jest.spyOn(global, 'alert');
+    global.alert.mockImplementation(() => {});
+
+    act(() => {
+      const { history } = renderWithRouterAndContext(<App />);
+      history.push('/drinks');
+    });
+    const searchButton = screen.getByTestId(searchIDbutton);
+    userEvent.click(searchButton);
+
+    const searchInput = screen.getByTestId(searchIDInput);
+    userEvent.type(searchInput, 'test');
+
+    const ingredientRadio = screen.getByTestId('first-letter-search-radio');
+    userEvent.click(ingredientRadio);
+
+    const filterButton = screen.getByTestId(filterIDbutton);
+    userEvent.click(filterButton);
+
+    expect(global.alert).toHaveBeenCalled();
+    expect(global.alert).toHaveBeenCalledTimes(1);
+  });
 });
 
 describe('', () => {
@@ -120,4 +145,62 @@ describe('', () => {
       expect(history.location.pathname).toBe('/meals/52957');
     });
   });
+});
+
+describe('', () => {
+  beforeEach(() => {
+    global.fetch = jest.fn().mockResolvedValue({
+      json: jest.fn().mockResolvedValue(EggCreamMock),
+    });
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('', async () => {
+    const { history } = renderWithRouterAndContext(<App />);
+    act(() => {
+      history.push('/drinks');
+    });
+
+    const searchButton = screen.getByTestId(searchIDbutton);
+    userEvent.click(searchButton);
+
+    const searchInput = screen.getByTestId(searchIDInput);
+    userEvent.type(searchInput, 'egg cream');
+
+    const nameRadio = screen.getByTestId('name-search-radio');
+    userEvent.click(nameRadio);
+
+    const filterButton = screen.getByTestId(filterIDbutton);
+    userEvent.click(filterButton);
+
+    await waitFor(() => {
+      expect(history.location.pathname).toBe('/drinks/12668');
+    });
+  });
+  // it('', async () => {
+  //   jest.spyOn(global, 'alert');
+  //   global.alert.mockImplementation(() => {});
+
+  //   act(() => {
+  //     const { history } = renderWithRouterAndContext(<App />);
+  //     history.push('/meals');
+  //   });
+  //   const searchButton = screen.getByTestId(searchIDbutton);
+  //   userEvent.click(searchButton);
+
+  //   const searchInput = screen.getByTestId(searchIDInput);
+  //   userEvent.type(searchInput, 'asfagasgdfg');
+
+  //   const nameRadio = screen.getByTestId('name-search-radio');
+  //   userEvent.click(nameRadio);
+
+  //   const filterButton = screen.getByTestId(filterIDbutton);
+  //   userEvent.click(filterButton);
+
+  //   expect(global.alert).toHaveBeenCalled();
+  //   expect(global.alert).toHaveBeenCalledTimes(1);
+  // });
 });
