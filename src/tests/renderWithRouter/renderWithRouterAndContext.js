@@ -4,6 +4,7 @@ import { createMemoryHistory } from 'history';
 import { render } from '@testing-library/react';
 import MealsProvider from '../../context/MealsContext';
 import DrinksProvider from '../../context/DrinksContext';
+import RecipesProvider from '../../context/RecipesContext';
 
 const renderWithRouterAndContext = (component) => {
   const history = createMemoryHistory();
@@ -14,7 +15,9 @@ const renderWithRouterAndContext = (component) => {
       >
         <MealsProvider>
           <DrinksProvider>
-            {component}
+            <RecipesProvider>
+              {component}
+            </RecipesProvider>
           </DrinksProvider>
         </MealsProvider>
       </Router>,
