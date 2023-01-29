@@ -75,6 +75,7 @@ describe('', () => {
     expect(shakeButton).toBeInTheDocument();
     expect(GG).toBeInTheDocument();
     // userEvent.click(ShakeButton);
+    // teste
 
     await waitFor(() => {
       userEvent.click(shakeButton);
