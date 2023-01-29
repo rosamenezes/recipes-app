@@ -1,22 +1,31 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Header from '../Components/Header';
 import MealsCard from '../Components/MealsCard';
+import Recipes from '../Components/Recipes';
 import { MealsContext } from '../context/MealsContext';
 
 function Meals() {
   const { dataResults } = useContext(MealsContext);
+  const [recipes, setRecipes] = useState(null);
   const number12 = 12;
+  useEffect(() => {
+    if (dataResults.meals !== null && dataResults.meals.length !== 0) {
+      setRecipes(dataResults);
+    } else {
+      setRecipes(null);
+    }
+  }, [dataResults]);
   return (
     <div>
       <Header />
-      {dataResults.meals !== null
-        && dataResults.meals.map((receitas, index) => (
+      {recipes !== null
+        ? recipes.meals.map((receitas, index) => (
           <MealsCard
             receitas={ receitas }
             index={ index }
             key={ index }
           />
-        )).slice(0, number12)}
+        )).slice(0, number12) : <Recipes />}
     </div>
   );
 }
