@@ -37,13 +37,24 @@ describe('', () => {
     });
 
     const breakfastButton = screen.getByTestId('Breakfast-category-filter');
+    const allButton = screen.getByTestId('All-category-filter');
     const corba = screen.getByText('Corba');
     expect(breakfastButton).toBeInTheDocument();
+    expect(allButton).toBeInTheDocument();
     expect(corba).toBeInTheDocument();
     // userEvent.click(breakfastButton);
 
     await waitFor(() => {
       userEvent.click(breakfastButton);
+    });
+    await waitFor(() => {
+      userEvent.click(breakfastButton);
+    });
+    await waitFor(() => {
+      userEvent.click(breakfastButton);
+    });
+    await waitFor(() => {
+      userEvent.click(allButton);
     });
   });
 });
@@ -71,6 +82,8 @@ describe('', () => {
     });
 
     const shakeButton = screen.getByTestId('Shake-category-filter');
+    const allButton = screen.getByTestId('All-category-filter');
+    expect(allButton).toBeInTheDocument();
     const GG = screen.getByText('GG');
     expect(shakeButton).toBeInTheDocument();
     expect(GG).toBeInTheDocument();
@@ -79,6 +92,15 @@ describe('', () => {
 
     await waitFor(() => {
       userEvent.click(shakeButton);
+    });
+    await waitFor(() => {
+      userEvent.click(shakeButton);
+    });
+    await waitFor(() => {
+      userEvent.click(shakeButton);
+    });
+    await waitFor(() => {
+      userEvent.click(allButton);
     });
   });
 });
