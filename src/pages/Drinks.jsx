@@ -3,6 +3,7 @@ import DrinksCard from '../Components/DrinksCard';
 import Header from '../Components/Header';
 import Recipes from '../Components/Recipes';
 import { DrinksContext } from '../context/DrinksContext';
+import Footer from '../Components/Footer';
 
 function Drinks() {
   const { dataResultsDrinks } = useContext(DrinksContext);
@@ -26,6 +27,9 @@ function Drinks() {
             key={ index }
           />
         )).slice(0, number12) : <Recipes />}
+        <div>
+         <Footer />
+        </div>
     </div>
   );
 }

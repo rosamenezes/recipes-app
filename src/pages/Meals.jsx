@@ -3,6 +3,7 @@ import Header from '../Components/Header';
 import MealsCard from '../Components/MealsCard';
 import Recipes from '../Components/Recipes';
 import { MealsContext } from '../context/MealsContext';
+import Footer from '../Components/Footer';
 
 function Meals() {
   const { dataResults } = useContext(MealsContext);
@@ -27,6 +28,7 @@ function Meals() {
             key={ index }
           />
         )).slice(0, number12) : <Recipes />}
+      <Footer />
     </div>
   );
 }
