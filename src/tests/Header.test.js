@@ -4,14 +4,16 @@ import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
 import renderWithRouter from './renderWithRouter/renderWithRouter';
 import App from '../App';
+import renderWithRouterAndContext from './renderWithRouter/renderWithRouterAndContext';
 
 const testIDbutton = 'profile-top-btn';
 const testIDpage = 'page-title';
+const pathDoneRecipes = '/done-recipes';
 
 it('Verificando o Header na pagina DoneRecipes', () => {
   const { history } = renderWithRouter(<App />);
 
-  act(() => history.push('/done-recipes'));
+  act(() => history.push(pathDoneRecipes));
 
   const perfilButton = screen.getByTestId(testIDbutton);
   expect(perfilButton).toBeInTheDocument();
@@ -23,7 +25,7 @@ it('Verificando o Header na pagina DoneRecipes', () => {
 it('Verificando o Header na pagina DoneRecipes', () => {
   const { history } = renderWithRouter(<App />);
 
-  act(() => history.push('/done-recipes'));
+  act(() => history.push(pathDoneRecipes));
 
   const perfilButton = screen.getByTestId(testIDbutton);
   expect(perfilButton).toBeInTheDocument();
@@ -69,12 +71,15 @@ it('Verificando o Header na pagina profile', () => {
 });
 
 it('Verificando se ao clicar no botao vai para a pagina profile', () => {
-  const { history } = renderWithRouter(<App />);
+  const { history } = renderWithRouterAndContext(<App />);
 
   act(() => history.push('/profile'));
 
   const perfilButton = screen.getByTestId(testIDbutton);
   userEvent.click(perfilButton);
+
+  const logoutButton = screen.getByTestId('profile-logout-btn');
+  expect(logoutButton).toBeInTheDocument();
 
   expect(history.location.pathname).toBe('/profile');
 });
@@ -103,4 +108,22 @@ it('Verificando se ao clicar no botao de pesquisa o input e renderizado na tela'
   const inputSearch = screen.getByTestId('search-input');
 
   expect(inputSearch).toBeInTheDocument();
+});
+
+it('Verificando se ao clicar no botao vai para a pagina profile', () => {
+  const { history } = renderWithRouterAndContext(<App />);
+
+  act(() => history.push(pathDoneRecipes));
+
+  const perfilButton = screen.getByTestId(testIDbutton);
+  // userEvent.click(perfilButton);
+
+  // const logoutButton = screen.getByTestId('profile-logout-btn');
+  expect(perfilButton).toBeInTheDocument();
+
+  expect(history.location.pathname).toBe(pathDoneRecipes);
+
+  act(() => history.push('/favorite-recipes'));
+
+  expect(perfilButton).toBeInTheDocument();
 });

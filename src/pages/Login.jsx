@@ -17,6 +17,11 @@ function Login() {
 
   const handleClick = () => {
     localStorage.setItem('user', JSON.stringify({ email: login.email }));
+    // localStorage.setItem('doneRecipes', JSON.stringify([{
+    //   idMeal: '52977',
+    //   type: 'meal',
+    //   nationality: 'Turkish',
+    // }]));
     history.push('/meals');
   };
   return (

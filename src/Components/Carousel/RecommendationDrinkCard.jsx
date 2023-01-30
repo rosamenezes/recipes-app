@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { RecipesContext } from '../context/RecipesContext';
+import { RecipesContext } from '../../context/RecipesContext';
 
-function DrinksCard(receitas) {
+function RecommendationDrinkCard(receitas) {
   const { receitas: { strDrink, strDrinkThumb, idDrink }, index } = receitas;
   const { pegaDrinkId } = useContext(RecipesContext);
 
@@ -15,9 +15,9 @@ function DrinksCard(receitas) {
       to={ `/drinks/${idDrink}` }
       onClick={ handleClick }
     >
-      <div data-testid={ `${index}-recipe-card` }>
+      <div data-testid={ `${index}-recommendation-card` }>
         <h1
-          data-testid={ `${index}-card-name` }
+          data-testid={ `${index}-recommendation-title` }
         >
           { strDrink }
         </h1>
@@ -33,4 +33,4 @@ function DrinksCard(receitas) {
   );
 }
 
-export default DrinksCard;
+export default RecommendationDrinkCard;
