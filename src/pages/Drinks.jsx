@@ -27,15 +27,6 @@ function Drinks() {
             key={ index }
           />
         )).slice(0, number12) : <Recipes />}
-      {/*
-      {dataResultsDrinks.drinks !== null
-      && dataResultsDrinks.drinks.map((receitas, index) => (
-        <DrinksCard
-          receitas={ receitas }
-          index={ index }
-          key={ index }
-        />
-      )).slice(0, number12)} */}
       <div>
         <Footer />
       </div>

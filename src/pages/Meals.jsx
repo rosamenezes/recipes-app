@@ -16,6 +16,7 @@ function Meals() {
       setRecipes(null);
     }
   }, [dataResults]);
+
   return (
     <div>
       <Header />

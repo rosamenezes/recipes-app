@@ -8,6 +8,8 @@ function RecipesProvider({ children }) {
   const [recipesDrinks, setRecipesDrinks] = useState({ drinks: [] });
   const [categoryMeals, setCategoryMeals] = useState('');
   const [categoryDrinks, setCategoryDrinks] = useState('');
+  const [mealId, setMealId] = useState(null);
+  const [drinkId, setDrinkId] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const mealsURLInicial = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
   const drinksURLInicial = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
@@ -72,13 +74,31 @@ function RecipesProvider({ children }) {
     }
   };
 
+  const pegaMealId = (id) => {
+    setMealId(id);
+  };
+
+  const pegaDrinkId = (id) => {
+    setDrinkId(id);
+  };
+
   const context = useMemo(() => ({
     escolheFiltroDrinks,
     escolheFiltroMeals,
+    pegaMealId,
+    pegaDrinkId,
+    mealId,
+    drinkId,
     recipesMeals,
     recipesDrinks,
     isLoading,
-  }), [recipesMeals, recipesDrinks, categoryMeals, categoryDrinks, isLoading]);
+  }), [recipesMeals,
+    recipesDrinks,
+    categoryMeals,
+    categoryDrinks,
+    isLoading,
+    mealId,
+    drinkId]);
 
   return (
     <RecipesContext.Provider value={ context }>

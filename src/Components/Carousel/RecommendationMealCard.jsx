@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { RecipesContext } from '../context/RecipesContext';
+import { RecipesContext } from '../../context/RecipesContext';
 
-function MealsCard(receitas) {
+function RecommendationMealCard(receitas) {
   const { receitas: { strMeal, strMealThumb, idMeal }, index } = receitas;
   const { pegaMealId } = useContext(RecipesContext);
 
@@ -15,8 +15,8 @@ function MealsCard(receitas) {
       to={ `/meals/${idMeal}` }
       onClick={ handleClick }
     >
-      <div data-testid={ `${index}-recipe-card` }>
-        <h1 data-testid={ `${index}-card-name` }>{ strMeal }</h1>
+      <div data-testid={ `${index}-recommendation-card` }>
+        <h1 data-testid={ `${index}-recommendation-title` }>{ strMeal }</h1>
         <img
           src={ strMealThumb }
           alt={ strMeal }
@@ -29,4 +29,4 @@ function MealsCard(receitas) {
   );
 }
 
-export default MealsCard;
+export default RecommendationMealCard;
