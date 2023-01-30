@@ -1,0 +1,9 @@
+/* stylelint-disable order/properties-alphabetical-order */
+.footer {
+  background-color: purple;
+  color: white;
+  bottom: 0;
+  font-size: 25px;
+  position: fixed;
+  width: 100%;
+}
