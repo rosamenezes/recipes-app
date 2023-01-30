@@ -27,9 +27,9 @@ function Drinks() {
             key={ index }
           />
         )).slice(0, number12) : <Recipes />}
-        <div>
-         <Footer />
-        </div>
+      <div>
+        <Footer />
+      </div>
     </div>
   );
 }

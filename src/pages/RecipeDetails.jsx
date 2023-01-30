@@ -8,7 +8,7 @@ import '../index.css';
 function RecipeDetails() {
   const [mealInfo, setMealInfo] = useState();
   const [drinkInfo, setDrinkInfo] = useState();
-  // const [buttonIsTrue, setButtonIsTrue] = useState(true);
+  const [buttonIsTrue, setButtonIsTrue] = useState(true);
   const [doneRecipes, setDoneRecipes] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const history = useHistory();
@@ -21,7 +21,7 @@ function RecipeDetails() {
     // console.log(doneRecipesStorage.some((p) => p.))
     // console.log(doneRecipesStorage);
     setDoneRecipes(doneRecipesStorage);
-    console.log(doneRecipes);
+    console.log(doneRecipes.length);
 
     const makeFetchMealDetail = async () => {
       setIsLoading(true);
@@ -48,16 +48,17 @@ function RecipeDetails() {
       makeFetchDrinkDetail();
     }
   }, []);
-  // useEffect(() => {
-  //   if (pathname.split('/')[1] === 'meals') {
-  //     setButtonIsTrue(doneRecipes
-  //       .some((p) => p.idMeal === pathname.split('/')[2]));
-  //   }
-  //   if (pathname.split('/')[1] === 'drinks') {
-  //     setButtonIsTrue(doneRecipes
-  //       .some((p) => p.idDrink === pathname.split('/')[2]));
-  //   }
-  // }, [doneRecipes]);
+  useEffect(() => {
+    if (pathname.split('/')[1] === 'meals') {
+      setButtonIsTrue(doneRecipes
+        .some((p) => p.idMeal === pathname.split('/')[2]));
+    }
+    if (pathname.split('/')[1] === 'drinks') {
+      setButtonIsTrue(doneRecipes
+        .some((p) => p.idDrink === pathname.split('/')[2]));
+    }
+    console.log(doneRecipes.length);
+  }, [doneRecipes]);
   return (
     <div>
       {isLoading ? <h1>carregando</h1>
@@ -69,7 +70,7 @@ function RecipeDetails() {
               : <MealDetailCard receita={ mealInfo } />}
           </div>)}
       <CarouselCard info={ pathname } />
-      {/* {doneRecipes.length > 0
+      {doneRecipes.length > 0
         && (
           <div>
             {buttonIsTrue === false && (
@@ -80,7 +81,7 @@ function RecipeDetails() {
               >
                 Start Recipe
               </button>)}
-          </div>) } */}
+          </div>) }
     </div>
   );
 }
