@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import 'react-responsive-carousel/lib/styles/carousel.min.css';
+/* import 'react-responsive-carousel/lib/styles/carousel.min.css'; */
 import PropTypes from 'prop-types';
 import RecommendationDrinkCard from './RecommendationDrinkCard';
 import RecommendationMealCard from './RecommendationMealCard';
