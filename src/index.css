@@ -16,3 +16,7 @@ code {
   bottom: 0px;
   left: 50%;
 }
+
+.esconde2 {
+  display: none;
+}

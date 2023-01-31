@@ -17,7 +17,7 @@ function CarouselCard({ info }) {
       const results = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
       const data = await results.json();
       setInfoMeal(data.meals.slice(0, number6));
-      console.log(data.meals.slice(0, number6));
+      // console.log(data.meals.slice(0, number6));
     //   setIsLoading(false);
     };
 
