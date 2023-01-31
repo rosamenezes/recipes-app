@@ -6,10 +6,11 @@ import MealDetailCard from '../Components/MealDetailCard';
 import '../index.css';
 
 function RecipeDetails() {
+  const StartName = 'Start Recipe';
   const [mealInfo, setMealInfo] = useState();
   const [drinkInfo, setDrinkInfo] = useState();
   const [buttonIsTrue, setButtonIsTrue] = useState(true);
-  const [buttonName, setButtonName] = useState('Start Recipe');
+  const [buttonName, setButtonName] = useState(StartName);
   const [doneRecipes, setDoneRecipes] = useState([{}]);
   const [inProgressRecipes, setinProgressRecipes] = useState({});
   const [isLoading, setIsLoading] = useState(false);
@@ -90,13 +91,13 @@ function RecipeDetails() {
       .keys(inProgressRecipes).length > 0) {
       const bol = Object.keys(inProgressRecipes.meals)
         .some((id) => id === pathname.split('/')[2]);
-      setButtonName(bol ? 'Continue Recipe' : 'Start Recipe');
+      setButtonName(bol ? 'Continue Recipe' : StartName);
     }
     if (pathname.split('/')[1] === 'drinks' && Object
       .keys(inProgressRecipes).length > 0) {
       const bol = Object.keys(inProgressRecipes.drinks)
         .some((id) => id === pathname.split('/')[2]);
-      setButtonName(bol ? 'Continue Recipe' : 'Start Recipe');
+      setButtonName(bol ? 'Continue Recipe' : StartName);
     }
   }, [inProgressRecipes]);
   return (
