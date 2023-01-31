@@ -165,7 +165,7 @@ function RecipeDetails() {
       <h2 className={ shareMessageState ? undefined : 'esconde' }>Link copied!</h2>
       <button
         type="button"
-        // data-testid="favorite-btn"
+        // data-testid="favoriaate-btn"
         onClick={ handleFavoriteClick }
       >
         <img
