@@ -10,6 +10,7 @@ import DoneRecipes from './pages/DoneRecipes';
 import FavoriteRecipes from './pages/FavoriteRecipes';
 import RecipeDetails from './pages/RecipeDetails';
 import { RecipesContext } from './context/RecipesContext';
+import RecipeInProgress from './pages/RecipeInProgress';
 
 function App() {
   const { mealId } = useContext(RecipesContext);
@@ -39,8 +40,12 @@ function App() {
         <Route path="/drinks" exact component={ Drinks } />
         <Route path={ `/meals/${id}` } exact component={ RecipeDetails } />
         <Route path={ `/drinks/${id}` } exact component={ RecipeDetails } />
-        <Route path="/meals/:id-da-receita/in-progress" exact component={ Meals } />
-        <Route path="/drinks/:id-da-receita/in-progress" exact component={ Drinks } />
+        <Route path={ `/meals/${id}/in-progress` } exact component={ RecipeInProgress } />
+        <Route
+          path={ `/drinks/${id}/in-progress` }
+          exact
+          component={ RecipeInProgress }
+        />
         <Route path="/profile" exact component={ Profile } />
         <Route path="/done-recipes" exact component={ DoneRecipes } />
         <Route path="/favorite-recipes" exact component={ FavoriteRecipes } />
