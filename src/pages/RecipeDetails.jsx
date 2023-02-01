@@ -8,6 +8,7 @@ import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import '../index.css';
+import useLocalStorage from '../hooks/useLocalStorage';
 
 function RecipeDetails() {
   const StartName = 'Start Recipe';
@@ -20,7 +21,9 @@ function RecipeDetails() {
   const [inProgressRecipes, setinProgressRecipes] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [shareMessageState, setShareMessageState] = useState(false);
+  const { setFavoriteStorage } = useLocalStorage();
   const history = useHistory();
+  const { criaInProgress } = useLocalStorage();
   const { pathname } = history.location;
   useEffect(() => {
     let doneRecipesStorage = JSON.parse(localStorage.getItem('doneRecipes'));
@@ -50,7 +53,7 @@ function RecipeDetails() {
       setIsLoading(true);
       const results = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${pathname.split('/')[2]}`);
       const data = await results.json();
-      console.log(data.meals[0]);
+      // console.log(data.meals[0]);
       setMealInfo(data.meals[0]);
       setIsLoading(false);
     };
@@ -98,6 +101,12 @@ function RecipeDetails() {
   }, [inProgressRecipes]);
 
   const handleClick = () => {
+    if (pathname.split('/')[1] === 'meals') {
+      criaInProgress(pathname.split('/')[1], mealInfo);
+    }
+    if (pathname.split('/')[1] === 'drinks') {
+      criaInProgress(pathname.split('/')[1], drinkInfo);
+    }
     history.push(`/${pathname.split('/')[1]}/${pathname.split('/')[2]}/in-progress`);
   };
   const handleShareClick = () => {
@@ -105,43 +114,21 @@ function RecipeDetails() {
     setShareMessageState(true);
   };
   const handleFavoriteClick = () => {
-    let favoriteRecipesStorage = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    if (favoriteRecipesStorage === null) {
-      favoriteRecipesStorage = [];
+    if (pathname.split('/')[1] === 'meals') {
+      setFavoriteStorage(
+        mealInfo,
+        pathname.split('/')[1],
+        pathname.split('/')[2],
+        verifica,
+      );
     }
-    // if (favoriteRecipesStorage !== null && favoriteRecipesStorage.length > 0) {
-    //   const teste = favoriteRecipesStorage.filter((p) => p.id !== pathname.split('/')[2]);
-    //   console.log(teste);
-    // }
-    // console.log(drinkInfo);
-    if (pathname.split('/')[1] === 'meals' && verifica === false) {
-      const array = [...favoriteRecipesStorage, { id: mealInfo.idMeal,
-        type: pathname.split('/')[1] === 'drinks' ? 'drink' : 'meal',
-        nationality: mealInfo.strArea,
-        category: mealInfo.strCategory,
-        alcoholicOrNot: '',
-        name: mealInfo.strMeal,
-        image: mealInfo.strMealThumb,
-      }];
-      console.log(array);
-      localStorage.setItem('favoriteRecipes', JSON.stringify(array));
-    }
-    if (pathname.split('/')[1] === 'drinks' && verifica === false) {
-      const array = [...favoriteRecipesStorage, { id: drinkInfo.idDrink,
-        type: pathname.split('/')[1] === 'drinks' ? 'drink' : 'meal',
-        nationality: '',
-        category: drinkInfo.strCategory,
-        alcoholicOrNot: drinkInfo.strAlcoholic,
-        name: drinkInfo.strDrink,
-        image: drinkInfo.strDrinkThumb,
-      }];
-      localStorage.setItem('favoriteRecipes', JSON.stringify(array));
-    }
-    if (favoriteRecipesStorage !== null
-      && favoriteRecipesStorage.length > 0 && verifica === true) {
-      const teste = favoriteRecipesStorage.filter((p) => p.id !== pathname.split('/')[2]);
-      console.log(teste);
-      localStorage.setItem('favoriteRecipes', JSON.stringify(teste));
+    if (pathname.split('/')[1] === 'drinks') {
+      setFavoriteStorage(
+        drinkInfo,
+        pathname.split('/')[1],
+        pathname.split('/')[2],
+        verifica,
+      );
     }
     setVerifica(!verifica);
   };
