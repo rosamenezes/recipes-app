@@ -6,7 +6,6 @@ import Header from '../Components/Header';
 function DoneRecipes() {
   const doneRecipesStorage = JSON.parse(localStorage.getItem('doneRecipes')) || [];
   const divOfNoRecepe = <div>Não há receitas completas</div>;
-
   return (
     <div>
       <Header />
