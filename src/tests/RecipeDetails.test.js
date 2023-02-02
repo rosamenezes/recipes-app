@@ -142,14 +142,20 @@ describe('Testa a pagina de Recipes Details', () => {
     userEvent.click(drinkTitle1);
     const { pathname } = history.location;
     expect(pathname).toBe('/drinks/15997');
-
-    act(() => {
-      history.push('/meals/52977');
+    await waitFor(() => {
+      expect(screen.getByText('Galliano / 2 1/2 shots')).toBeInTheDocument();
     });
-    expect(startRecipeBtn).toHaveTextContent('Continue Recipe');
+    userEvent.click(screen.getByText('Start Recipe'));
+    await waitFor(() => {
+      expect(screen.getByTestId('0-ingredient-step')).toBeInTheDocument();
+    });
+    history.push('/drinks/15997');
+    await waitFor(() => {
+      expect(screen.getByText('Continue Recipe')).toBeInTheDocument();
+    });
   });
 
-  it('Verifica se muda o texto do botão recipe', async () => {
+  it('Verifica se o botao Start recipe muda seu texto', async () => {
     global.fetch = jest.fn((url) => Promise.resolve({
       json: async () => {
         if (url === 'https://www.themealdb.com/api/json/v1/1/search.php?s=') {
@@ -161,26 +167,97 @@ describe('Testa a pagina de Recipes Details', () => {
         if (url === 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=52977') {
           return corbaMock;
         }
-        if (url === 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=15997') {
-          return ggMock;
+      },
+    }));
+    const { history } = renderWithRouterAndContext(<App />);
+    history.push('/meals');
+    await waitFor(() => {
+      expect(screen.getByTestId('0-recipe-card')).toBeInTheDocument();
+    });
+    userEvent.click(screen.getByTestId('0-recipe-card'));
+    await waitFor(() => {
+      expect(screen.getByText('Corba')).toBeInTheDocument();
+      expect(screen.getByText('Start Recipe')).toBeInTheDocument();
+    });
+    userEvent.click(screen.getByText('Start Recipe'));
+    await waitFor(() => {
+      expect(screen.getByTestId('0-ingredient-step')).toBeInTheDocument();
+    });
+    history.push('/meals/52977');
+    await waitFor(() => {
+      expect(screen.getByText('Continue Recipe')).toBeInTheDocument();
+    });
+  });
+
+  it('Verifica clipboard', async () => {
+    let clipboardData = '';
+    const mockClipboard = {
+      writeText: jest.fn(
+        (data) => { clipboardData = data; },
+      ),
+      readText: jest.fn(
+        () => clipboardData,
+      ),
+    };
+    global.navigator.clipboard = mockClipboard;
+    global.fetch = jest.fn((url) => Promise.resolve({
+      json: async () => {
+        if (url === 'https://www.themealdb.com/api/json/v1/1/search.php?s=') {
+          return InitialRecipeMealMock;
+        }
+        if (url === 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=') {
+          return InitialRecipeDrinkMock;
+        }
+        if (url === 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=52977') {
+          return corbaMock;
         }
       },
     }));
     const { history } = renderWithRouterAndContext(<App />);
-    act(() => {
-      history.push('/meals/52977');
-    });
-    const startRecipeBtn = await screen.findByTestId('start-recipe-btn');
-    expect(startRecipeBtn).toHaveTextContent('Start Recipe');
+    history.push('/meals');
     await waitFor(() => {
-      userEvent.click(startRecipeBtn);
-      const { pathname } = history.location;
-      expect(pathname).toBe('/meals/52977');
+      expect(screen.getByTestId('0-recipe-card')).toBeInTheDocument();
     });
-
-    act(() => {
-      history.push('/meals/52977');
+    userEvent.click(screen.getByTestId('0-recipe-card'));
+    await waitFor(() => {
+      expect(screen.getByText('Corba')).toBeInTheDocument();
+      expect(screen.getByTestId('share-btn')).toBeInTheDocument();
     });
-    expect(startRecipeBtn).toHaveTextContent('Continue Recipe');
+    userEvent.click(screen.getByTestId('share-btn'));
+    expect(navigator.clipboard.readText()).toBe('http://localhost:3000/meals/52977');
   });
+
+  // it('Verifica se o botao Start Recipe Drink muda seu texto', async () => {
+  //   global.fetch = jest.fn((url) => Promise.resolve({
+  //     json: async () => {
+  //       if (url === 'https://www.themealdb.com/api/json/v1/1/search.php?s=') {
+  //         return InitialRecipeMealMock;
+  //       }
+  //       if (url === 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=') {
+  //         return InitialRecipeDrinkMock;
+  //       }
+  //       if (url === 'www.thecocktaildb.com/api/json/v1/1/lookup.php?i=15997') {
+  //         return ggMock;
+  //       }
+  //     },
+  //   }));
+  //   const { history } = renderWithRouterAndContext(<App />);
+  //   history.push('/drinks');
+  //   await waitFor(() => {
+  //     expect(screen.getByTestId('0-recipe-card')).toBeInTheDocument();
+  //     userEvent.click(screen.getByTestId('0-recipe-card'));
+  //   });
+  //   await waitFor(() => {
+  //     expect(screen.getByText('GG')).toBeInTheDocument();
+  //     expect(screen.getByText('Start Recipe')).toBeInTheDocument();
+  //   });
+  //   userEvent.click(screen.getByText('Start Recipe'));
+  //   await waitFor(() => {
+  //     expect(screen.getByTestId('0-ingredient-step')).toBeInTheDocument();
+  //   });
+  //   history.push('/drinks/15997');
+  //   await waitFor(() => {
+  //     expect(screen.getByText('Continue Recipe')).toBeInTheDocument();
+  //   });
+  // });
 });
