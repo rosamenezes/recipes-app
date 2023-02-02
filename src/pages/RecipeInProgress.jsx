@@ -10,19 +10,19 @@ function RecipeInProgress() {
   const { pathname } = history.location;
   useEffect(() => {
     const makeFetchMealDetail = async () => {
-      setIsLoading(true);
+      setIsLoading(false);
       const results = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${pathname.split('/')[2]}`);
       const data = await results.json();
       setMealInfo(data.meals[0]);
-      setIsLoading(false);
+      setIsLoading(true);
     };
 
     const makeFetchDrinkDetail = async () => {
-      setIsLoading(true);
+      setIsLoading(false);
       const results = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${pathname.split('/')[2]}`);
       const data = await results.json();
       setDrinkInfo(data.drinks[0]);
-      setIsLoading(false);
+      setIsLoading(true);
     };
 
     if (pathname.split('/')[1] === 'meals') {
@@ -32,16 +32,16 @@ function RecipeInProgress() {
       makeFetchDrinkDetail();
     }
   }, [pathname]);
-  useEffect(() => {
-    if (mealInfo === null || drinkInfo === null) {
-      setIsLoading(false);
-    } else {
-      setIsLoading(true);
-    }
-  }, [mealInfo, drinkInfo]);
+  // useEffect(() => {
+  //   if (mealInfo === null || drinkInfo === null) {
+  //     setIsLoading(false);
+  //   } else {
+  //     setIsLoading(true);
+  //   }
+  // }, [mealInfo, drinkInfo]);
   return (
     <div>
-      {!isLoading
+      {isLoading
         ? (
           <div>
             { pathname.split('/')[1] === 'meals'
