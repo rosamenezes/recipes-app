@@ -10,6 +10,12 @@ import corbaMock from './mocks/mocksMeals/corbaMock.json';
 import ggMock from './mocks/mocksMeals/ggMock.json';
 
 describe('Testa a pagina de Recipes Details', () => {
+  const recipeCard = '0-recipe-card';
+  const initialMeal = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+  const initialDrink = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+  const corbaEndPoint = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=52977';
+  const startRecipe = 'Start Recipe';
+
   it('Verifica se ao clicar no botao buscar o funcao makeFech realiza o fecth e verifica se os botoes de filtros são aplicados', async () => {
     global.fetch = jest.fn().mockResolvedValue({
       json: jest.fn()
@@ -23,9 +29,9 @@ describe('Testa a pagina de Recipes Details', () => {
       history.push('/meals');
     });
     await waitFor(() => {
-      expect(screen.getByTestId('0-recipe-card')).toBeInTheDocument();
+      expect(screen.getByTestId(recipeCard)).toBeInTheDocument();
     });
-    userEvent.click(screen.getByTestId('0-recipe-card'));
+    userEvent.click(screen.getByTestId(recipeCard));
     await waitFor(() => {
       expect(screen.getByText('Sea Salt / Pinch')).toBeInTheDocument();
     });
@@ -118,13 +124,13 @@ describe('Testa a pagina de Recipes Details', () => {
   it('Verifica se redireciona para o GG', async () => {
     global.fetch = jest.fn((url) => Promise.resolve({
       json: async () => {
-        if (url === 'https://www.themealdb.com/api/json/v1/1/search.php?s=') {
+        if (url === initialMeal) {
           return InitialRecipeMealMock;
         }
-        if (url === 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=') {
+        if (url === initialDrink) {
           return InitialRecipeDrinkMock;
         }
-        if (url === 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=52977') {
+        if (url === corbaEndPoint) {
           return corbaMock;
         }
         if (url === 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=15997') {
@@ -137,7 +143,7 @@ describe('Testa a pagina de Recipes Details', () => {
       history.push('/meals/52977');
     });
     const startRecipeBtn = await screen.findByTestId('start-recipe-btn');
-    expect(startRecipeBtn).toHaveTextContent('Start Recipe');
+    expect(startRecipeBtn).toHaveTextContent(startRecipe);
     const drinkTitle1 = await screen.findByTestId('0-recommendation-title');
     userEvent.click(drinkTitle1);
     const { pathname } = history.location;
@@ -145,7 +151,7 @@ describe('Testa a pagina de Recipes Details', () => {
     await waitFor(() => {
       expect(screen.getByText('Galliano / 2 1/2 shots')).toBeInTheDocument();
     });
-    userEvent.click(screen.getByText('Start Recipe'));
+    userEvent.click(screen.getByText(startRecipe));
     await waitFor(() => {
       expect(screen.getByTestId('0-ingredient-step')).toBeInTheDocument();
     });
@@ -158,13 +164,13 @@ describe('Testa a pagina de Recipes Details', () => {
   it('Verifica se o botao Start recipe muda seu texto', async () => {
     global.fetch = jest.fn((url) => Promise.resolve({
       json: async () => {
-        if (url === 'https://www.themealdb.com/api/json/v1/1/search.php?s=') {
+        if (url === initialMeal) {
           return InitialRecipeMealMock;
         }
-        if (url === 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=') {
+        if (url === initialDrink) {
           return InitialRecipeDrinkMock;
         }
-        if (url === 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=52977') {
+        if (url === corbaEndPoint) {
           return corbaMock;
         }
       },
@@ -172,14 +178,14 @@ describe('Testa a pagina de Recipes Details', () => {
     const { history } = renderWithRouterAndContext(<App />);
     history.push('/meals');
     await waitFor(() => {
-      expect(screen.getByTestId('0-recipe-card')).toBeInTheDocument();
+      expect(screen.getByTestId(recipeCard)).toBeInTheDocument();
     });
-    userEvent.click(screen.getByTestId('0-recipe-card'));
+    userEvent.click(screen.getByTestId(recipeCard));
     await waitFor(() => {
       expect(screen.getByText('Corba')).toBeInTheDocument();
-      expect(screen.getByText('Start Recipe')).toBeInTheDocument();
+      expect(screen.getByText(startRecipe)).toBeInTheDocument();
     });
-    userEvent.click(screen.getByText('Start Recipe'));
+    userEvent.click(screen.getByText(startRecipe));
     await waitFor(() => {
       expect(screen.getByTestId('0-ingredient-step')).toBeInTheDocument();
     });
@@ -202,13 +208,13 @@ describe('Testa a pagina de Recipes Details', () => {
     global.navigator.clipboard = mockClipboard;
     global.fetch = jest.fn((url) => Promise.resolve({
       json: async () => {
-        if (url === 'https://www.themealdb.com/api/json/v1/1/search.php?s=') {
+        if (url === initialMeal) {
           return InitialRecipeMealMock;
         }
-        if (url === 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=') {
+        if (url === initialDrink) {
           return InitialRecipeDrinkMock;
         }
-        if (url === 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=52977') {
+        if (url === corbaEndPoint) {
           return corbaMock;
         }
       },
@@ -216,9 +222,9 @@ describe('Testa a pagina de Recipes Details', () => {
     const { history } = renderWithRouterAndContext(<App />);
     history.push('/meals');
     await waitFor(() => {
-      expect(screen.getByTestId('0-recipe-card')).toBeInTheDocument();
+      expect(screen.getByTestId(recipeCard)).toBeInTheDocument();
     });
-    userEvent.click(screen.getByTestId('0-recipe-card'));
+    userEvent.click(screen.getByTestId(recipeCard));
     await waitFor(() => {
       expect(screen.getByText('Corba')).toBeInTheDocument();
       expect(screen.getByTestId('share-btn')).toBeInTheDocument();
@@ -226,38 +232,4 @@ describe('Testa a pagina de Recipes Details', () => {
     userEvent.click(screen.getByTestId('share-btn'));
     expect(navigator.clipboard.readText()).toBe('http://localhost:3000/meals/52977');
   });
-
-  // it('Verifica se o botao Start Recipe Drink muda seu texto', async () => {
-  //   global.fetch = jest.fn((url) => Promise.resolve({
-  //     json: async () => {
-  //       if (url === 'https://www.themealdb.com/api/json/v1/1/search.php?s=') {
-  //         return InitialRecipeMealMock;
-  //       }
-  //       if (url === 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=') {
-  //         return InitialRecipeDrinkMock;
-  //       }
-  //       if (url === 'www.thecocktaildb.com/api/json/v1/1/lookup.php?i=15997') {
-  //         return ggMock;
-  //       }
-  //     },
-  //   }));
-  //   const { history } = renderWithRouterAndContext(<App />);
-  //   history.push('/drinks');
-  //   await waitFor(() => {
-  //     expect(screen.getByTestId('0-recipe-card')).toBeInTheDocument();
-  //     userEvent.click(screen.getByTestId('0-recipe-card'));
-  //   });
-  //   await waitFor(() => {
-  //     expect(screen.getByText('GG')).toBeInTheDocument();
-  //     expect(screen.getByText('Start Recipe')).toBeInTheDocument();
-  //   });
-  //   userEvent.click(screen.getByText('Start Recipe'));
-  //   await waitFor(() => {
-  //     expect(screen.getByTestId('0-ingredient-step')).toBeInTheDocument();
-  //   });
-  //   history.push('/drinks/15997');
-  //   await waitFor(() => {
-  //     expect(screen.getByText('Continue Recipe')).toBeInTheDocument();
-  //   });
-  // });
 });
