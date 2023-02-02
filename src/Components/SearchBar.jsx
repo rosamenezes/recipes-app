@@ -22,7 +22,6 @@ function SearchBar() {
     if (history.location.pathname === '/meals') {
       makeFetch(searchInput, filterRadio);
       // if (erro === 'erro') {
-      //   console.log('teste');
       //   global.alert(alertLetter);
       // }
     }
@@ -36,8 +35,6 @@ function SearchBar() {
 
   useEffect(() => {
     if (erro === 'erro') {
-      console.log('teste2');
-
       global.alert(alertLetter);
     }
     if (dataResults.meals !== null && dataResults.meals.length === 1) {

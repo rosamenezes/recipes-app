@@ -53,7 +53,6 @@ function RecipeDetails() {
       setIsLoading(true);
       const results = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${pathname.split('/')[2]}`);
       const data = await results.json();
-      // console.log(data.meals[0]);
       setMealInfo(data.meals[0]);
       setIsLoading(false);
     };

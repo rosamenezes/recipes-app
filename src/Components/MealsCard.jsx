@@ -7,7 +7,6 @@ function MealsCard(receitas) {
   const { pegaMealId } = useContext(RecipesContext);
 
   const handleClick = () => {
-    console.log(idMeal);
     pegaMealId(idMeal);
   };
 

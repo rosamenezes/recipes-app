@@ -131,7 +131,6 @@ export default function useLocalStorage() {
 
   const setFavoriteStorage = (info, pathname1, pathname2, verifica) => {
     let favoriteRecipesStorage = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    console.log(favoriteRecipesStorage);
     if (favoriteRecipesStorage === null) {
       favoriteRecipesStorage = [];
     }
@@ -200,10 +199,8 @@ export default function useLocalStorage() {
     if (doneRecipesStorage.length === 1
         && Object.keys(doneRecipesStorage[0]).length === 0) {
       final = [receba];
-      console.log(final);
     } else {
       final = [...doneRecipesStorage, receba];
-      console.log(final);
     }
     localStorage.setItem('doneRecipes', JSON.stringify(final));
   };

@@ -10,14 +10,12 @@ function CarouselCard({ info }) {
   const [infoDrink, setInfoDrink] = useState(null);
   const [state, setState] = useState('1');
   const number6 = 6;
-  //   console.log(info);
   useEffect(() => {
     const makeFetchMealDetail = async () => {
     //   setIsLoading(true);
       const results = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
       const data = await results.json();
       setInfoMeal(data.meals.slice(0, number6));
-      // console.log(data.meals.slice(0, number6));
     //   setIsLoading(false);
     };
 
@@ -26,8 +24,6 @@ function CarouselCard({ info }) {
       const results = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
       const data = await results.json();
       setInfoDrink(data.drinks.slice(0, number6));
-    //   console.log(data.drinks.slice(0, number6));
-    //   console.log(infoDrink);
     //   setIsLoading(false);
     };
 
@@ -38,9 +34,7 @@ function CarouselCard({ info }) {
       makeFetchDrinkDetail();
     }
   }, []);
-  // useEffect(() => {
-  //   console.log(infoDrink);
-  // }, [infoDrink]);
+
   return (
     <div>
       {info.split('/')[1] === 'meals'
