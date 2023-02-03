@@ -1,0 +1,74 @@
+
+> recipes-app-test@1.0.0 cy
+> env CY_CLI=true cypress run
+
+
+================================================================================
+
+  (Run Starting)
+
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Cypress:        10.11.0                                                                        │
+  │ Browser:        Electron 106 (headless)                                                        │
+  │ Node Version:   v16.17.0 (/home/bruno/.nvm/versions/node/v16.17.0/bin/node)                    │
+  │ Specs:          11 found (01.coverage.cy.js, 02-06.login.cy.js, 07-09.header.cy.js, 10-15.head │
+  │                 er_search_bar.cy.js, 16-18.footer.cy.js, 19-23.recipes.cy.js, 24-36.recipe_det │
+  │                 ail.cy.js, 37-43.recipe_in_progress.cy.js, 44-49.done_recipes.cy.js, 50-56.fav │
+  │                 orite_recipes.cy.js, 57...)                                                    │
+  │ Searched:       cypress/e2e/**/*.cy.{js,jsx,ts,tsx}                                            │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+                                                                                                    
+  Running:  01.coverage.cy.js                                                              (1 of 11)
+
+
+  1 - Desenvolva os testes unitários de maneira que a cobertura seja de, no mínimo, 90%
+    1) Verifica a cobertura de 90% da aplicação total
+
+
+  0 passing (4s)
+  1 failing
+
+  1) 1 - Desenvolva os testes unitários de maneira que a cobertura seja de, no mínimo, 90%
+       Verifica a cobertura de 90% da aplicação total:
+
+      Timed out retrying after 0ms
+      + expected - actual
+
+      -82.14
+      +90
+      
+      at Context.eval (webpack:///./cypress/e2e/01.coverage.cy.js:7:78)
+
+
+
+[mochawesome] Report JSON saved to /home/bruno/Desktop/trybe/projetos/sd-026-a-project-recipes-app/cypress/reports/mochawesome.json
+
+
+  (Results)
+
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Tests:        1                                                                                │
+  │ Passing:      0                                                                                │
+  │ Failing:      1                                                                                │
+  │ Pending:      0                                                                                │
+  │ Skipped:      0                                                                                │
+  │ Screenshots:  0                                                                                │
+  │ Video:        false                                                                            │
+  │ Duration:     4 seconds                                                                        │
+  │ Spec Ran:     01.coverage.cy.js                                                                │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+                                                                                                    
+  Running:  02-06.login.cy.js                                                              (2 of 11)
+ERR_FAILED (-2) loading 'http://localhost:33329/__/#/specs/runner?file=cypress/e2e/02-06.login.cy.js'
+Error: ERR_FAILED (-2) loading 'http://localhost:33329/__/#/specs/runner?file=cypress/e2e/02-06.login.cy.js'
+    at rejectAndCleanup (node:electron/js2c/browser_init:165:7500)
+    at EventEmitter.stopLoadingListener (node:electron/js2c/browser_init:165:7875)
+    at EventEmitter.emit (node:events:527:28)
+    at EventEmitter.emit (node:domain:475:12)
+

@@ -82,11 +82,14 @@ function DoneRecipesCard() {
               ))}
               <button
                 onClick={ () => shareButton(recipe.id, recipe.type) }
-                src={ shareIcon }
-                data-testid={ `${index}-horizontal-share-btn` }
+                // data-testid={ `${index}-horizontal-share-btn` }
                 id={ recipe.id }
               >
-                Compartilhar
+                <img
+                  src={ shareIcon }
+                  alt="share icon"
+                  data-testid={ `${index}-horizontal-share-btn` }
+                />
               </button>
               {copyLink.map((id, i) => (
                 recipe.id === id && (
