@@ -49,6 +49,7 @@ function CarouselCard({ info }) {
                   <button
                     type="button"
                     onClick={ () => setState('2') }
+                    data-testid="next-btn1"
                   >
                     {'>'}
                   </button>
@@ -59,6 +60,7 @@ function CarouselCard({ info }) {
                   <button
                     type="button"
                     onClick={ () => setState('3') }
+                    data-testid="next-btn2"
                   >
                     {'>'}
                   </button>
@@ -69,6 +71,7 @@ function CarouselCard({ info }) {
                   <button
                     type="button"
                     onClick={ () => setState('1') }
+                    data-testid="next-btn3"
                   >
                     {'>'}
                   </button>
@@ -87,6 +90,7 @@ function CarouselCard({ info }) {
                   <button
                     type="button"
                     onClick={ () => setState('2') }
+                    data-testid="next-btn1"
                   >
                     {'>'}
                   </button>
@@ -97,6 +101,7 @@ function CarouselCard({ info }) {
                   <button
                     type="button"
                     onClick={ () => setState('3') }
+                    data-testid="next-btn2"
                   >
                     {'>'}
                   </button>
@@ -107,6 +112,7 @@ function CarouselCard({ info }) {
                   <button
                     type="button"
                     onClick={ () => setState('1') }
+                    data-testid="next-btn3"
                   >
                     {'>'}
                   </button>

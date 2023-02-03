@@ -21,15 +21,9 @@ function SearchBar() {
   const handleClick = () => {
     if (history.location.pathname === '/meals') {
       makeFetch(searchInput, filterRadio);
-      // if (erro === 'erro') {
-      //   global.alert(alertLetter);
-      // }
     }
     if (history.location.pathname === '/drinks') {
       makeFetchDrinks(searchInput, filterRadio);
-      // if (erroDrinks === 'erro') {
-      //   global.alert(alertLetter);
-      // }
     }
   };
 

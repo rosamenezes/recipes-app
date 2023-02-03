@@ -212,3 +212,44 @@ describe('Testa o componente recipes na pagina "Drinks"', () => {
     });
   });
 });
+
+describe('recipe component', () => {
+  it('testa drink card', async () => {
+    global.fetch = jest.fn((url) => Promise.resolve({
+      json: async () => {
+        if (url === 'https://www.themealdb.com/api/json/v1/1/search.php?s=') {
+          return InitialRecipeMealMock;
+        }
+        if (url === 'https://www.themealdb.com/api/json/v1/1/filter.php?c=beef') {
+          return InitialRecipeMealMock;
+        }
+        if (url === 'https://www.themealdb.com/api/json/v1/1/filter.php?c=goat') {
+          return InitialRecipeMealMock;
+        }
+        if (url === 'https://www.themealdb.com/api/json/v1/1/filter.php?c=dessert') {
+          return InitialRecipeMealMock;
+        }
+        if (url === 'https://www.themealdb.com/api/json/v1/1/filter.php?c=chicken') {
+          return InitialRecipeMealMock;
+        }
+      },
+    }));
+    act(() => {
+      const { history } = renderWithRouterAndContext(<App />);
+      history.push('/meals');
+    });
+    await waitFor(() => {
+      expect(screen.getByTestId('0-card-name')).toBeInTheDocument();
+    });
+    // userEvent.click(screen.getByTestId('Breakfast-category-filter'));
+    userEvent.click(screen.getByTestId('Chicken-category-filter'));
+    userEvent.click(screen.getByTestId('Dessert-category-filter'));
+    userEvent.click(screen.getByTestId('Goat-category-filter'));
+    userEvent.click(screen.getByTestId('Goat-category-filter'));
+    userEvent.click(screen.getByTestId('Goat-category-filter'));
+    userEvent.click(screen.getByTestId('All-category-filter'));
+    // await waitFor(() => {
+    //   expect(screen.getByTestId('0-card-name')).toBeInTheDocument();
+    // });
+  });
+});

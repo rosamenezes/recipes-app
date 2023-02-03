@@ -126,4 +126,15 @@ it('Verificando se ao clicar no botao vai para a pagina profile', () => {
   act(() => history.push('/favorite-recipes'));
 
   expect(perfilButton).toBeInTheDocument();
+  expect(screen.getByText('Favorites')).toBeInTheDocument();
+  userEvent.click(screen.getByText('Favorites'));
+});
+
+it('favorites button esta no header', () => {
+  const { history } = renderWithRouterAndContext(<App />);
+
+  act(() => history.push(pathDoneRecipes));
+
+  expect(screen.getByText('Favorites')).toBeInTheDocument();
+  userEvent.click(screen.getByText('Favorites'));
 });
