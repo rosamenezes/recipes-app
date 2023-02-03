@@ -120,6 +120,12 @@ function Header() {
           <h1 data-testid="page-title">Favorite Recipes</h1>
         </div>
       ) }
+      <button
+        type="button"
+        onClick={ () => history.push('/favorite-recipes') }
+      >
+        Favorites
+      </button>
     </div>
   );
 }
