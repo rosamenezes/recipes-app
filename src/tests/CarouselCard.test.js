@@ -9,6 +9,8 @@ import ggMock from './mocks/mocksMeals/ggMock.json';
 import InitialRecipeMealMock from './mocks/mocksMeals/InitialRecipeMealMock.json';
 import InitialRecipeDrinkMock from './mocks/mocksMeals/InitialRecipeDrinkMock.json';
 
+const recipec = '0-recipe-card';
+
 it('Verifica carrosel', async () => {
   global.fetch = jest.fn((url) => Promise.resolve({
     json: async () => {
@@ -28,9 +30,9 @@ it('Verifica carrosel', async () => {
     history.push('/meals');
   });
   await waitFor(() => {
-    expect(screen.getByTestId('0-recipe-card')).toBeInTheDocument();
+    expect(screen.getByTestId(recipec)).toBeInTheDocument();
   });
-  userEvent.click(screen.getByTestId('0-recipe-card'));
+  userEvent.click(screen.getByTestId(recipec));
   await waitFor(() => {
     expect(screen.getByText('GG')).toBeInTheDocument();
   });
@@ -62,9 +64,9 @@ it('Verifica carrosel meal', async () => {
     history.push('/drinks');
   });
   await waitFor(() => {
-    expect(screen.getByTestId('0-recipe-card')).toBeInTheDocument();
+    expect(screen.getByTestId(recipec)).toBeInTheDocument();
   });
-  userEvent.click(screen.getByTestId('0-recipe-card'));
+  userEvent.click(screen.getByTestId(recipec));
   await waitFor(() => {
     expect(screen.getByText('Optional alcohol')).toBeInTheDocument();
   });

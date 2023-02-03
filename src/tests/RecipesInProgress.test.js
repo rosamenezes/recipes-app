@@ -8,6 +8,8 @@ import corbaMock from './mocks/mocksMeals/corbaMock.json';
 import InitialRecipeMealMock from './mocks/mocksMeals/InitialRecipeMealMock.json';
 import InitialRecipeDrinkMock from './mocks/mocksMeals/InitialRecipeDrinkMock.json';
 
+const recipeCard0 = '0-recipe-card';
+
 it('Verifica se possui um email renderizado na tela', async () => {
   global.fetch = jest.fn((url) => Promise.resolve({
     json: async () => {
@@ -27,9 +29,9 @@ it('Verifica se possui um email renderizado na tela', async () => {
     history.push('/meals');
   });
   await waitFor(() => {
-    expect(screen.getByTestId('0-recipe-card')).toBeInTheDocument();
+    expect(screen.getByTestId(recipeCard0)).toBeInTheDocument();
   });
-  userEvent.click(screen.getByTestId('0-recipe-card'));
+  userEvent.click(screen.getByTestId(recipeCard0));
   await waitFor(() => {
     expect(screen.getByText('Sea Salt / Pinch')).toBeInTheDocument();
   });
@@ -58,9 +60,9 @@ it('Verifica se possui um email renderizado na tela', async () => {
 //     history.push('/meals');
 //   });
 //   await waitFor(() => {
-//     expect(screen.getByTestId('0-recipe-card')).toBeInTheDocument();
+//     expect(screen.getByTestId(recipeCard0)).toBeInTheDocument();
 //   });
-//   userEvent.click(screen.getByTestId('0-recipe-card'));
+//   userEvent.click(screen.getByTestId(recipeCard0));
 //   await waitFor(() => {
 //     expect(screen.getByText('Sea Salt / Pinch')).toBeInTheDocument();
 //   });
@@ -89,9 +91,9 @@ it('testa risca', async () => {
     history.push('/meals');
   });
   await waitFor(() => {
-    expect(screen.getByTestId('0-recipe-card')).toBeInTheDocument();
+    expect(screen.getByTestId(recipeCard0)).toBeInTheDocument();
   });
-  userEvent.click(screen.getByTestId('0-recipe-card'));
+  userEvent.click(screen.getByTestId(recipeCard0));
   await waitFor(() => {
     expect(screen.getByText('Sea Salt / Pinch')).toBeInTheDocument();
   });
