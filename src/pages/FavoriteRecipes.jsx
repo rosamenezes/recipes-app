@@ -5,13 +5,7 @@ import Header from '../Components/Header';
 function FavoriteRecipes() {
   const [favoriteStorage, setFavoriteStorage] = useState(null);
   useEffect(() => {
-    let favoritesRecipesStorage = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    if (favoritesRecipesStorage === undefined
-      && favoritesRecipesStorage === null
-      && favoritesRecipesStorage.length === 0) {
-      favoritesRecipesStorage = [];
-      localStorage.setItem('favoriteRecipes', JSON.stringify(favoritesRecipesStorage));
-    }
+    const favoritesRecipesStorage = JSON.parse(localStorage.getItem('favoriteRecipes'));
     setFavoriteStorage(favoritesRecipesStorage);
   }, []);
 
