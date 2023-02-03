@@ -12,7 +12,12 @@ const recipeCard0 = '0-recipe-card';
 const urlInitialMeal = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
 const urlInitialDrink = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
 
+const setLocalStorage = (mockName, mockStorage) => {
+  window.localStorage.setItem(mockName, JSON.stringify(mockStorage));
+};
+
 it('testa risca', async () => {
+  setLocalStorage('inProgressRecipes', { drinks: { 15997: ['Galliano / 2 1/2 shots $$$checked', 'Ginger ale / null$$$checked', 'Ice / null$$$checked'] }, meals: {} });
   let clipboardData = '';
   const mockClipboard = {
     writeText: jest.fn(
@@ -36,8 +41,9 @@ it('testa risca', async () => {
       }
     },
   }));
+  const { history } = renderWithRouterAndContext(<App />);
   act(() => {
-    const { history } = renderWithRouterAndContext(<App />);
+    // const { history } = renderWithRouterAndContext(<App />);
     history.push('/drinks');
   });
   await waitFor(() => {
@@ -64,5 +70,9 @@ it('testa risca', async () => {
   //   userEvent.click(screen.getByTestId('11-ingredient-step'));
   //   userEvent.click(screen.getByTestId('12-ingredient-step'));
   expect(navigator.clipboard.readText()).toBe('http://localhost:3000/drinks/15997');
-  expect(screen.getByTestId('finish-recipe-btn')).toBeDisabled();
+  expect(screen.getByTestId('finish-recipe-btn')).toBeEnabled();
+  userEvent.click(screen.getByTestId('finish-recipe-btn'));
+//   await waitFor(() => {
+//     expect(screen.getByText('Galliano / 2 1/2 shots')).toHaveAttribute('class', 'risca');
+//   });
 });
